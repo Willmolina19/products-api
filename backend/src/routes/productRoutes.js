@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 const validateProduct = require("../middlewares/validateProduct");
 
@@ -12,7 +13,7 @@ const {
 } = require("../controllers/productController");
 
 // Crear producto
-router.post("/", validateProduct, createProduct);
+router.post("/", verifyToken, validateProduct, createProduct);
 
 // Obtener todos los productos
 router.get("/", getProducts);

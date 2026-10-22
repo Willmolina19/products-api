@@ -1,16 +1,20 @@
-
 const express = require("express");
+const cors = require("cors");
+
 const productRoutes = require("./routes/productRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-// Middleware para recibir JSON
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
+
 app.use(express.json());
 
-// Rutas de productos
+app.use("/", authRoutes);
 app.use("/products", productRoutes);
 
-// Ruta de prueba
 app.get("/health", (req, res) => {
   res.status(200).json({
     message: "API funcionando correctamente"
